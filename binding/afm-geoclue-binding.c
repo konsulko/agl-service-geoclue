@@ -125,6 +125,8 @@ static void on_ready(GObject *source_object, GAsyncResult *res, gpointer ptr)
 		abort();
 	}
 
+	send_event(simple);
+
 	g_signal_connect(simple, "notify::location", G_CALLBACK(send_event), NULL);
 }
 
