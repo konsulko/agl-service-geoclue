@@ -27,10 +27,10 @@
 #include <glib-object.h>
 #include <json-c/json.h>
 
-#define AFB_BINDING_VERSION 2
+#define AFB_BINDING_VERSION 3
 #include <afb/afb-binding.h>
 
-static struct afb_event location_event;
+static afb_event_t location_event;
 static GClueSimple *simple;
 
 /*
@@ -99,7 +99,7 @@ static void send_event(GClueSimple *simple)
 	afb_event_push(location_event, jresp);
 }
 
-static void get_data(struct afb_req request)
+static void get_data(afb_req_t request)
 {
 	json_object *jresp = json_object_new_object();
 	GClueLocation *location;
@@ -139,7 +139,7 @@ static void *geoclue_loop_thread(void *ptr)
 	return NULL;
 }
 
-static int init()
+static int init(afb_api_t api)
 {
 	pthread_t thread_id;
 
@@ -148,7 +148,7 @@ static int init()
 	return pthread_create(&thread_id, NULL, geoclue_loop_thread, NULL);
 }
 
-static void subscribe(struct afb_req request)
+static void subscribe(afb_req_t request)
 {
 	const char *value = afb_req_value(request, "value");
 
@@ -169,7 +169,7 @@ static void subscribe(struct afb_req request)
 	afb_req_fail(request, "failed", "Invalid event");
 }
 
-static void unsubscribe(struct afb_req request)
+static void unsubscribe(afb_req_t request)
 {
 	const char *value = afb_req_value(request, "value");
 
@@ -182,7 +182,7 @@ static void unsubscribe(struct afb_req request)
 	afb_req_fail(request, "failed", "Invalid event");
 }
 
-static const struct afb_verb_v2 binding_verbs[] = {
+static const struct afb_verb_v3 binding_verbs[] = {
 	{ .verb = "location",    .callback = get_data,     .info = "Get GeoClue coordinates" },
 	{ .verb = "subscribe",   .callback = subscribe,    .info = "Subscribe to GeoClue events" },
 	{ .verb = "unsubscribe", .callback = unsubscribe,  .info = "Unsubscribe to GeoClue events" },
@@ -192,7 +192,7 @@ static const struct afb_verb_v2 binding_verbs[] = {
 /*
  * binder API description
  */
-const struct afb_binding_v2 afbBindingV2 = {
+const struct afb_binding_v3 afbBindingV3 = {
 	.api = "geoclue",
 	.specification = "GeoClue service API",
 	.verbs = binding_verbs,
