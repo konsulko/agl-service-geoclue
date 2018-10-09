@@ -25,6 +25,7 @@ PROJECT_TARGET_ADD(afm-geoclue-binding)
 
 	# Binder exposes a unique public entry point
 	SET_TARGET_PROPERTIES(${TARGET_NAME} PROPERTIES
+		PREFIX "lib"
 		LABELS "BINDING"
 		LINK_FLAGS ${BINDINGS_LINK_FLAG}
 		OUTPUT_NAME ${TARGET_NAME}
@@ -32,8 +33,3 @@ PROJECT_TARGET_ADD(afm-geoclue-binding)
 
 	# Library dependencies (include updates automatically)
 	TARGET_LINK_LIBRARIES(${TARGET_NAME} ${link_libraries})
-
-	# installation directory
-	INSTALL(TARGETS ${TARGET_NAME}
-		LIBRARY DESTINATION ${BINDINGS_INSTALL_DIR})
-
