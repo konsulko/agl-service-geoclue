@@ -9,8 +9,8 @@ using WiFi SSIDs, and IP addresses.
 
 | Name               | Description                             | JSON Parameters                                                                            |
 |--------------------|:----------------------------------------|:-------------------------------------------------------------------------------------------|
-| subscribe          | subscribe to geofence events            | *Request:* {"value": "location"}                                                           |
-| unsubscribe        | unsubscribe to geofence events          | *Request:* {"value": "location"}                                                           |
+| subscribe          | subscribe to GeoClue events             | *Request:* {"value": "location"}                                                           |
+| unsubscribe        | unsubscribe to GeoClue events           | *Request:* {"value": "location"}                                                           |
 | location           | get current GeoClue coordinates         | *Response:* {"latitude": 45.50, "longitude": -122.25, "accuracy": 20000, "altitude": 4000} |
 
 *accuracy* is the calculated radius in meters that the geolocation reading is likely within.
